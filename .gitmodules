@@ -1,19 +1,19 @@
 [submodule "FV3"]
   path = FV3
-  url = https://github.com/NOAA-EMC/fv3atm
-  branch = develop
+  url = https://github.com/samtrahan/fv3atm
+  branch = axiom-azure
 [submodule "WW3"]
   path = WW3
-  url = https://github.com/NOAA-EMC/WW3
-  branch = dev/ufs-weather-model
+  url = https://github.com/samtrahan/WW3
+  branch = axiom-azure
 [submodule "stochastic_physics"]
   path = stochastic_physics
   url = https://github.com/NOAA-PSL/stochastic_physics
   branch = master
 [submodule "CMakeModules"]
   path = CMakeModules
-  url = https://github.com/NOAA-EMC/CMakeModules
-  branch = develop
+  url = https://github.com/samtrahan/CMakeModules
+  branch = axiom-azure
 [submodule "CMEPS"]
   path = CMEPS-interface/CMEPS
   url = https://github.com/NOAA-EMC/CMEPS

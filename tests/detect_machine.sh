@@ -104,6 +104,10 @@ case $(hostname -f) in
   login02.expanse.sdsc.edu) MACHINE_ID=expanse ;; ### expanse2
 esac
 
+if [[ "$PLATFORM" == axiom ]] ; then
+    MACHINE_ID=$PLATFORM
+fi
+
 # Overwrite auto-detect with RT_MACHINE if set
 MACHINE_ID=${RT_MACHINE:-${MACHINE_ID}}
 

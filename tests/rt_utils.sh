@@ -363,7 +363,7 @@ check_results() {
         fi
 
         if [[ $d -eq 1 && ${i##*.} == 'nc' ]] ; then
-          if [[ ${MACHINE_ID} =~ orion || ${MACHINE_ID} =~ hera || ${MACHINE_ID} =~ wcoss2 || ${MACHINE_ID} =~ acorn || ${MACHINE_ID} =~ cheyenne || ${MACHINE_ID} =~ gaea || ${MACHINE_ID} =~ jet || ${MACHINE_ID} =~ s4 ]] ; then
+          if [[ ${MACHINE_ID} =~ orion || ${MACHINE_ID} =~ hera || ${MACHINE_ID} =~ wcoss2 || ${MACHINE_ID} =~ acorn || ${MACHINE_ID} =~ cheyenne || ${MACHINE_ID} =~ gaea || ${MACHINE_ID} =~ jet || ${MACHINE_ID} =~ s4 || ${MACHINE_ID} ~= axiom ]] ; then
             printf ".......ALT CHECK.." >> ${REGRESSIONTEST_LOG}
             printf ".......ALT CHECK.."
             ${PATHRT}/compare_ncfile.py ${RTPWD}/${CNTL_DIR}/$i ${RUNDIR}/$i > compare_ncfile.log 2>&1 && d=$? || d=$?
@@ -648,8 +648,15 @@ ecflow_run() {
   if [[ $not_running -eq 1 ]]; then
     echo "ecflow_server is NOT running on ${ECF_HOST}:${ECF_PORT}"
     if [[ ${MACHINE_ID} == wcoss2.* || ${MACHINE_ID} == acorn.* ]]; then
-      # Annoying "Has NCO assigned port $ECF_PORT for use by this account? (yes/no) ".
-      echo yes | ${ECFLOW_START} -p ${ECF_PORT} -d ${RUNDIR_ROOT}/ecflow_server
+      if [[ "${HOST::1}" == "a" ]]; then
+	export ECF_HOST=adecflow01
+      elif [[ "${HOST::1}" == "c" ]]; then
+	export ECF_HOST=cdecflow01
+      elif [[ "${HOST::1}" == "d" ]]; then
+	export ECF_HOST=ddecflow01
+      fi
+      MYCOMM="bash -l -c \"module load ecflow && ecflow_start.sh -p ${ECF_PORT} \""
+      ssh $ECF_HOST "${MYCOMM}"
     elif [[ ${MACHINE_ID} == jet.* ]]; then
       module load ecflow
       echo "Using special Jet ECFLOW start procedure"

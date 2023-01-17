@@ -14,8 +14,11 @@ load(pathJoin("libpng", libpng_ver))
 hdf5_ver=os.getenv("hdf5_ver") or "1.10.6"
 load(pathJoin("hdf5", hdf5_ver))
 
-netcdf_ver=os.getenv("netcdf_ver") or "4.7.4"
-load(pathJoin("netcdf", netcdf_ver))
+netcdf_c_ver=os.getenv("netcdf_c_ver") or "4.7.4"
+load(pathJoin("netcdf-c", netcdf_c_ver))
+
+netcdf_fortran_ver=os.getenv("netcdf_fortran_ver") or "4.5.4"
+load(pathJoin("netcdf-fortran", netcdf_c_ver))
 
 pio_ver=os.getenv("pio_ver") or "2.5.7"
 load(pathJoin("pio", pio_ver))
@@ -35,7 +38,7 @@ load(pathJoin("crtm", crtm_ver))
 g2_ver=os.getenv("g2_ver") or "3.4.5"
 load(pathJoin("g2", g2_ver))
 
-g2tmpl_ver=os.getenv("g2tmpl_ver") or "1.10.0"
+g2tmpl_ver=os.getenv("g2tmpl_ver") or "1.10.2"
 load(pathJoin("g2tmpl", g2tmpl_ver))
 
 ip_ver=os.getenv("ip_ver") or "3.3.3"
@@ -47,7 +50,7 @@ load(pathJoin("sp", sp_ver))
 w3emc_ver=os.getenv("w3emc_ver") or "2.9.2"
 load(pathJoin("w3emc", w3emc_ver))
 
-gftl_shared_ver=os.getenv("gftl_shared_ver") or "v1.5.0"
+gftl_shared_ver=os.getenv("gftl_shared_ver") or "1.5.0"
 load(pathJoin("gftl-shared", gftl_shared_ver))
 
 mapl_ver=os.getenv("mapl_ver") or "2.22.0-esmf-8.3.0b09"

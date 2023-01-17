@@ -139,7 +139,7 @@ if [[ $MACHINE_ID = wcoss2.* ]]; then
   #ROCOTOCOMPLETE=$(which rocotocomplete)
   #ROCOTO_SCHEDULER=lsf
 
-  module load ecflow/5.6.0.6
+  module load ecflow/5.6.0.13
   module load gcc/10.3.0 python/3.8.6
   ECFLOW_START=${ECF_ROOT}/scripts/server_check.sh
   export ECF_OUTPUTDIR=${PATHRT}/ecf_outputdir
@@ -162,7 +162,7 @@ if [[ $MACHINE_ID = wcoss2.* ]]; then
 
 elif [[ $MACHINE_ID = acorn.* ]]; then
 
-  module load ecflow/5.6.0.6
+  module load ecflow/5.6.0.13
   module load gcc/10.3.0 python/3.8.6
   ECFLOW_START=${ECF_ROOT}/scripts/server_check.sh
   export ECF_OUTPUTDIR=${PATHRT}/ecf_outputdir
@@ -230,6 +230,35 @@ elif [[ $MACHINE_ID = hera.* ]]; then
   SCHEDULER=slurm
   cp fv3_conf/fv3_slurm.IN_hera fv3_conf/fv3_slurm.IN
   cp fv3_conf/compile_slurm.IN_hera fv3_conf/compile_slurm.IN
+
+elif [[ $MACHINE_ID = axiom.* ]]; then
+
+  module load rocoto
+  ROCOTORUN=$(which rocotorun)
+  ROCOTOSTAT=$(which rocotostat)
+  ROCOTOCOMPLETE=$(which rocotocomplete)
+  ROCOTO_SCHEDULER=slurm
+
+  PYTHONHOME=/lustre/work/HPC-Stack/core/miniconda3/4.6.14
+  export PATH=$PYTHONHOME/bin:$PATH
+  export PYTHONPATH=$PYTHONHOME/lib/python3.7/site-packages
+
+  module load ecflow
+  ECFLOW_START=ecflow_start.sh
+
+  QUEUE=batch
+  COMPILE_QUEUE=batch
+
+  #ACCNR="${ACCNR:-fv3-cpu}
+  PARTITION=
+  dprefix=/lustre/work
+  DISKNM=$dprefix/nems/emc.nemspara/RT
+  STMP=$dprefix/stmp4
+  PTMP=$dprefix/stmp2
+
+  SCHEDULER=slurm
+  cp fv3_conf/fv3_slurm.IN_axiom fv3_conf/fv3_slurm.IN
+  cp fv3_conf/compile_slurm.IN_axiom fv3_conf/compile_slurm.IN
 
 elif [[ $MACHINE_ID = orion.* ]]; then
 
@@ -445,7 +474,7 @@ if [[ $TESTS_FILE =~ '35d' ]] || [[ $TESTS_FILE =~ 'weekly' ]]; then
   TEST_35D=true
 fi
 
-BL_DATE=20230110
+BL_DATE=20230112
 
 RTPWD=${RTPWD:-$DISKNM/NEMSfv3gfs/develop-${BL_DATE}/${RT_COMPILER^^}}
 
@@ -498,6 +527,10 @@ if [[ $ROCOTO == true ]]; then
     COMPILE_QUEUE=dev
     ROCOTO_SCHEDULER=pbs
   elif [[ $MACHINE_ID = hera.* ]]; then
+    QUEUE=batch
+    COMPILE_QUEUE=batch
+    ROCOTO_SCHEDULER=slurm
+  elif [[ $MACHINE_ID = axiom.* ]]; then
     QUEUE=batch
     COMPILE_QUEUE=batch
     ROCOTO_SCHEDULER=slurm
