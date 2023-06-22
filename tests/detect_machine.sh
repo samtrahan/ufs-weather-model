@@ -114,5 +114,9 @@ case $(echo $PW_CSP) in
 esac
 [[ ${MACHINE_ID} =~ "aws" || ${MACHINE_ID} =~ "gcp" || ${MACHINE_ID} =~ "azure" ]] && MACHINE_ID=noaacloud
 
+if [[ "$PLATFORM" == axiom ]] ; then
+    MACHINE_ID=$PLATFORM
+fi
+
 # Overwrite auto-detect with RT_MACHINE if set
 MACHINE_ID=${RT_MACHINE:-${MACHINE_ID}}

@@ -229,6 +229,35 @@ elif [[ $MACHINE_ID = hera ]]; then
   cp fv3_conf/fv3_slurm.IN_hera fv3_conf/fv3_slurm.IN
   cp fv3_conf/compile_slurm.IN_hera fv3_conf/compile_slurm.IN
 
+elif [[ $MACHINE_ID = axiom.* ]]; then
+
+  module load rocoto
+  ROCOTORUN=$(which rocotorun)
+  ROCOTOSTAT=$(which rocotostat)
+  ROCOTOCOMPLETE=$(which rocotocomplete)
+  ROCOTO_SCHEDULER=slurm
+
+  PYTHONHOME=/lustre/work/HPC-Stack/core/miniconda3/4.6.14
+  export PATH=$PYTHONHOME/bin:$PATH
+  export PYTHONPATH=$PYTHONHOME/lib/python3.7/site-packages
+
+  module load ecflow
+  ECFLOW_START=ecflow_start.sh
+
+  QUEUE=batch
+  COMPILE_QUEUE=batch
+
+  #ACCNR="${ACCNR:-fv3-cpu}
+  PARTITION=
+  dprefix=/lustre/work
+  DISKNM=$dprefix/nems/emc.nemspara/RT
+  STMP=$dprefix/stmp4
+  PTMP=$dprefix/stmp2
+
+  SCHEDULER=slurm
+  cp fv3_conf/fv3_slurm.IN_axiom fv3_conf/fv3_slurm.IN
+  cp fv3_conf/compile_slurm.IN_axiom fv3_conf/compile_slurm.IN
+
 elif [[ $MACHINE_ID = orion ]]; then
 
   module load gcc/8.3.0
@@ -542,6 +571,10 @@ if [[ $ROCOTO == true ]]; then
     COMPILE_QUEUE=dev
     ROCOTO_SCHEDULER=pbs
   elif [[ $MACHINE_ID = hera ]]; then
+    QUEUE=batch
+    COMPILE_QUEUE=batch
+    ROCOTO_SCHEDULER=slurm
+  elif [[ $MACHINE_ID = axiom.* ]]; then
     QUEUE=batch
     COMPILE_QUEUE=batch
     ROCOTO_SCHEDULER=slurm

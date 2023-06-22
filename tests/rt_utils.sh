@@ -347,7 +347,7 @@ check_results() {
         fi
 
         if [[ $d -eq 1 && ${i##*.} == 'nc' ]] ; then
-          if [[ ${MACHINE_ID} =~ orion || ${MACHINE_ID} =~ hera || ${MACHINE_ID} =~ wcoss2 || ${MACHINE_ID} =~ acorn || ${MACHINE_ID} =~ cheyenne || ${MACHINE_ID} =~ gaea || ${MACHINE_ID} =~ jet || ${MACHINE_ID} =~ s4 || ${MACHINE_ID} =~ noaacloud ]] ; then
+          if [[ ${MACHINE_ID} =~ orion || ${MACHINE_ID} =~ hera || ${MACHINE_ID} =~ wcoss2 || ${MACHINE_ID} =~ acorn || ${MACHINE_ID} =~ cheyenne || ${MACHINE_ID} =~ gaea || ${MACHINE_ID} =~ jet || ${MACHINE_ID} =~ s4 || ${MACHINE_ID} =~ noaacloud || ${MACHINE_ID} =~ axiom ]] ; then
             printf ".......ALT CHECK.." >> ${RT_LOG}
             printf ".......ALT CHECK.."
             if [[ ${MACHINE_ID} =~ orion || ${MACHINE_ID} =~ hera || ${MACHINE_ID} =~ gaea || ${MACHINE_ID} =~ jet || ${MACHINE_ID} =~ cheyenne ]] ; then
